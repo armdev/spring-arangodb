@@ -12,3 +12,5 @@ access: http://localhost:9090/swagger-ui/index.html#/account-resource/register
 ArangoDB admin tool:
 http://localhost:8529/
 root:root
+
+Java Version: 17
