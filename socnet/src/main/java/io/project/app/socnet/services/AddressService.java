@@ -11,6 +11,7 @@ import io.project.app.socnet.repositories.AddressRepository;
 
 import io.project.app.socnet.requests.AddressCreation;
 import io.project.app.socnet.responses.AddressResponse;
+import java.util.List;
 
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -38,16 +39,35 @@ public class AddressService {
     }
 
     public Optional<AddressResponse> find(String id) {
-        
+
         Optional<Address> address = addressRepository.findById(id);
         if (address.isPresent()) {
-       
+
             Address get = address.get();
-                 log.info("Address is present " + get);
+            log.info("Address is present " + get);
             return Optional.of(AddressCommand.toAddressResponse(get));
         }
         return Optional.empty();
 
     }
 
+    public Optional<Address> findEntity(String id) {
+
+        Optional<Address> address = addressRepository.findById(id);
+        if (address.isPresent()) {
+
+            Address get = address.get();
+            log.info("Address is present " + get);
+            return Optional.of(get);
+        }
+        return Optional.empty();
+
+    }
+
+    public List<AddressResponse> findAll() {
+        List<Address> accountList = (List) addressRepository.findAll();
+
+        return AddressCommand.toAddressResponseList(accountList);
+
+    }
 }

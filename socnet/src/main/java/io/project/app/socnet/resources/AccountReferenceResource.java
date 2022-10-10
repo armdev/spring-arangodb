@@ -6,9 +6,12 @@
 package io.project.app.socnet.resources;
 
 import io.project.app.socnet.requests.AccountCreation;
+import io.project.app.socnet.requests.AccountReferenceCreation;
+import io.project.app.socnet.responses.AccountReferenceResponse;
 import io.project.app.socnet.responses.AccountResponse;
 import io.project.app.socnet.responses.RestApiResponse;
 import io.project.app.socnet.services.AccountService;
+import io.project.app.socnet.services.AddressReferenceService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
@@ -26,14 +29,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v2/accounts")
+@RequestMapping("/api/v2/references")
 @Slf4j
-public class AccountResource {
+public class AccountReferenceResource {
 
-    private final AccountService accountService;
+    private final AddressReferenceService addressReferenceService;
 
-    public AccountResource(AccountService accountService) {
-        this.accountService = accountService;
+    public AccountReferenceResource(AddressReferenceService addressReferenceService) {
+        this.addressReferenceService = addressReferenceService;
     }
 
     @ApiResponses(value = {
@@ -41,38 +44,9 @@ public class AccountResource {
 
     })
     @PostMapping(path = "/account", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity setup(@RequestBody AccountCreation requestData) {
-        log.info("Registration started " + requestData.toString());
-        AccountResponse registerAccount = accountService.setup(requestData);
-        return ResponseEntity.status(HttpStatus.CREATED).body(registerAccount);
-
-    }
-
-    @ApiResponses(value = {
-        @ApiResponse()
-
-    })
-    @GetMapping(path = "/account")
-    public ResponseEntity find(@RequestParam String id) {
-
-        Optional<AccountResponse> account = accountService.find(id);
-
-        if (account.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(account.get());
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RestApiResponse("Did not find account"));
-
-    }
-
-    @ApiResponses(value = {
-        @ApiResponse()
-
-    })
-    @GetMapping(path = "/account/all")
-    public ResponseEntity all() {
-        List<AccountResponse> accountList = accountService.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(accountList);
+    public ResponseEntity setup(@RequestBody AccountReferenceCreation accountReferenceCreation) {
+        AccountReferenceResponse accountReferenceResponse = addressReferenceService.setupReference(accountReferenceCreation.getAccountId(), accountReferenceCreation.getAddressId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(accountReferenceResponse);
 
     }
 

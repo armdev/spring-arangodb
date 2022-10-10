@@ -6,6 +6,7 @@
 package io.project.app.socnet.resources;
 
 import io.project.app.socnet.requests.AddressCreation;
+import io.project.app.socnet.responses.AccountResponse;
 
 import io.project.app.socnet.responses.AddressResponse;
 import io.project.app.socnet.responses.RestApiResponse;
@@ -13,6 +14,7 @@ import io.project.app.socnet.responses.RestApiResponse;
 import io.project.app.socnet.services.AddressService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.util.List;
 
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +63,17 @@ public class AddressResource {
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RestApiResponse("Did not find address"));
+
+    }
+
+    @ApiResponses(value = {
+        @ApiResponse()
+
+    })
+    @GetMapping(path = "/find/all")
+    public ResponseEntity all() {
+        List<AddressResponse> addressList = addressService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(addressList);
 
     }
 

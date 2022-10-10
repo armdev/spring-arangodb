@@ -2,7 +2,9 @@ package io.project.app.socnet.mappers;
 
 import io.project.app.socnet.domain.Account;
 import io.project.app.socnet.requests.AccountCreation;
+import io.project.app.socnet.responses.AccountReferenceResponse;
 import io.project.app.socnet.responses.AccountResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,18 @@ public class AccountCommand {
     public static AccountResponse toAccountResponse(Account input) {
         AccountResponse output = new AccountResponse();
         try {
+            BeanUtils.copyProperties(input, output);
+        } catch (BeansException e) {
+            throw new RuntimeException("Error creating Account from Account", e);
+        }
+        return output;
+    }
+    
+     public static AccountReferenceResponse toAccountReferenceResponse(Account input) {
+        AccountReferenceResponse output = new AccountReferenceResponse();
+        try {
+            output.setAddressArangoId(input.getAddress().getArangoId());           
+          
             BeanUtils.copyProperties(input, output);
         } catch (BeansException e) {
             throw new RuntimeException("Error creating Account from Account", e);
