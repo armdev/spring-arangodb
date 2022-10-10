@@ -2,8 +2,10 @@ package io.project.app.socnet.mappers;
 
 import io.project.app.socnet.domain.Account;
 import io.project.app.socnet.requests.AccountCreation;
+import io.project.app.socnet.responses.AccountFriendResponse;
 import io.project.app.socnet.responses.AccountReferenceResponse;
 import io.project.app.socnet.responses.AccountResponse;
+import io.project.app.socnet.responses.Friend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,24 @@ public class AccountCommand {
             BeanUtils.copyProperties(input, output);
         } catch (BeansException e) {
             throw new RuntimeException("Error creating Account from AccountCreation", e);
+        }
+        return output;
+    }
+
+    public static AccountFriendResponse toAccountResponseWithFriends(Account input) {
+        AccountFriendResponse output = new AccountFriendResponse();
+        try {
+            BeanUtils.copyProperties(input, output);
+            Friend ff = new Friend();
+            for (Account friend : input.getFriends()) {
+                ff = new Friend();
+                ff.setId(friend.getId());
+                ff.setName(friend.getName());
+                output.getFriendList().add(ff);
+            }
+           
+        } catch (BeansException e) {
+            throw new RuntimeException("Error creating Account from Account", e);
         }
         return output;
     }

@@ -12,6 +12,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -21,6 +22,7 @@ import org.springframework.data.annotation.Id;
 @Edge(collection = "relations")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Relation implements Serializable {
 
     @Serial
@@ -33,6 +35,6 @@ public class Relation implements Serializable {
     private Account from;
 
     @To
-    private Account ro;
+    private Account to;
 
 }

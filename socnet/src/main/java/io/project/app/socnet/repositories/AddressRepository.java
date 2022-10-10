@@ -6,11 +6,13 @@ package io.project.app.socnet.repositories;
 
 import com.arangodb.springframework.repository.ArangoRepository;
 import io.project.app.socnet.domain.Address;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author armena
  */
+@Repository
 public interface AddressRepository extends ArangoRepository<Address, String> {
 
 }

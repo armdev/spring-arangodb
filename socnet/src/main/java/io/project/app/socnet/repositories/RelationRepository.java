@@ -5,7 +5,8 @@
 package io.project.app.socnet.repositories;
 
 import com.arangodb.springframework.repository.ArangoRepository;
-import io.project.app.socnet.domain.Account;
+import io.project.app.socnet.domain.Relation;
+import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author armena
  */
 @Repository
-public interface AccountRepository extends ArangoRepository<Account, String> {
+public interface RelationRepository extends ArangoRepository<Relation, String> {
+    
+    Optional<Relation> findByFromIdAndToId(String origin, String target);
 
 }

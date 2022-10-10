@@ -42,6 +42,11 @@ public class AccountService {
         return AccountCommand.toAccountReferenceResponse(account);
     }
     
+     public Account addFriend(Account accountWithFriend) {
+        Account account = accountRepository.save(accountWithFriend);
+        return account;
+    }
+    
      public Optional<AccountReferenceResponse> findWithAddress(String id) {
         Optional<Account> account = accountRepository.findById(id);
         if (account.isPresent()) {
