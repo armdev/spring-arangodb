@@ -7,7 +7,6 @@ package io.project.app.socnet.domain;
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Field;
-import com.arangodb.springframework.annotation.Ref;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,11 +19,11 @@ import org.springframework.data.annotation.Id;
  *
  * @author armena
  */
-@Document(collection = "account")
+@Document(collection = "address")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account implements Serializable {
+public class Address implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -7340797464295033378L;
@@ -34,11 +33,8 @@ public class Account implements Serializable {
 
     @ArangoId
     private String arangoId;
-    
-    @Ref
-    private Address address;
 
     @Field
-    private String name;
+    private String address;
 
 }
