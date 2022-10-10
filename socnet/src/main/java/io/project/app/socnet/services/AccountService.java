@@ -41,6 +41,15 @@ public class AccountService {
         Account account = accountRepository.save(addAddress);
         return AccountCommand.toAccountReferenceResponse(account);
     }
+    
+     public Optional<AccountReferenceResponse> findWithAddress(String id) {
+        Optional<Account> account = accountRepository.findById(id);
+        if (account.isPresent()) {
+            Account get = account.get();
+            return Optional.of(AccountCommand.toAccountReferenceResponse(get));
+        }
+        return Optional.empty();
+    }
 
     public Optional<AccountResponse> find(String id) {
         Optional<Account> account = accountRepository.findById(id);

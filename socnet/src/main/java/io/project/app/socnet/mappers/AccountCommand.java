@@ -32,12 +32,18 @@ public class AccountCommand {
         }
         return output;
     }
-    
-     public static AccountReferenceResponse toAccountReferenceResponse(Account input) {
+
+    public static AccountReferenceResponse toAccountReferenceResponse(Account input) {
         AccountReferenceResponse output = new AccountReferenceResponse();
         try {
-            output.setAddressArangoId(input.getAddress().getArangoId());           
-          
+            if (input.getAddress() != null) {
+                output.setAddressArangoId(input.getAddress().getArangoId());
+                output.setAddressName(input.getAddress().getAddress());
+            } else {
+                output.setAddressArangoId("empty");
+                output.setAddressName("emtpy");
+            }
+
             BeanUtils.copyProperties(input, output);
         } catch (BeansException e) {
             throw new RuntimeException("Error creating Account from Account", e);

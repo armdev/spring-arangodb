@@ -26,6 +26,7 @@ public class AccountReferenceResponse implements Serializable {
     private String arangoId; 
     private String name;  
     private String addressArangoId;
+    private String addressName;
 
 
 }

@@ -6,6 +6,7 @@
 package io.project.app.socnet.resources;
 
 import io.project.app.socnet.requests.AccountCreation;
+import io.project.app.socnet.responses.AccountReferenceResponse;
 import io.project.app.socnet.responses.AccountResponse;
 import io.project.app.socnet.responses.RestApiResponse;
 import io.project.app.socnet.services.AccountService;
@@ -56,6 +57,23 @@ public class AccountResource {
     public ResponseEntity find(@RequestParam String id) {
 
         Optional<AccountResponse> account = accountService.find(id);
+
+        if (account.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(account.get());
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RestApiResponse("Did not find account"));
+
+    }
+
+    @ApiResponses(value = {
+        @ApiResponse()
+
+    })
+    @GetMapping(path = "/account/address")
+    public ResponseEntity findAndAddress(@RequestParam String id) {
+
+        Optional<AccountReferenceResponse> account = accountService.findWithAddress(id);
 
         if (account.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(account.get());
