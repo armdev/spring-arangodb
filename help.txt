@@ -3,4 +3,5 @@ docker-compose up -d
 https://dev.to/sonyarianto/how-to-spin-arangodb-server-with-docker-and-docker-compose-3c00
 https://www.arangodb.com/docs/stable/drivers/spring-data-getting-started.html
 https://www.arangodb.com/docs/stable/drivers/spring-data-reference-mapping.html
+https://github.com/arangodb/spring-data-demo/blob/master/src/main/java/com/arangodb/spring/demo/runner/GeospatialRunner.java
 
